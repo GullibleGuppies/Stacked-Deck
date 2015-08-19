@@ -5,6 +5,7 @@ public class Player
 {
 	public string test;
 	// Use this for initialization
+	//lol
 	void Start ()
 	{
 	
