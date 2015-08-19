@@ -4,7 +4,7 @@ using System.Collections;
 public class Player
 {
 	public string test;
-	public Object matt = new FUCKER();
+	public Object matt;
 	// Use this for initialization
 	//lol
 	void Start ()
