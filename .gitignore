@@ -8,6 +8,7 @@ Stacked_Deck/[Bb]uild/
 *.suo
 *.tmp
 *.user
+*.userprefs
 *.pidb
 *.booproj
 
