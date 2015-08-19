@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Player
 {
-
+	public string test;
 	// Use this for initialization
 	void Start ()
 	{
