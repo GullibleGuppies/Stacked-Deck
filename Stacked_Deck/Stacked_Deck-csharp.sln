@@ -1,7 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-Project("{E993A3C6-8836-B69C-347C-3C1EF4BA38CE}") = "Stacked_Deck", "Assembly-CSharp.csproj", "{56A6A856-3214-EE40-F468-3D98DBEBE1E2}"
+Project("{E993A3C6-8836-B69C-347C-3C1EF4BA38CE}") = "Stacked_Deck", "Assembly-CSharp-vs.csproj", "{56A6A856-3214-EE40-F468-3D98DBEBE1E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,7 +17,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-								GlobalSection(MonoDevelopProperties) = preSolution
+									GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1

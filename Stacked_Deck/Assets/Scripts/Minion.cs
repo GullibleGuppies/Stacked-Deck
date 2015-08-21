@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour
+public class Minion : Card
 {
+
 	// Use this for initialization
 	void Start ()
 	{
