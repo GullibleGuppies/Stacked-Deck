@@ -14,8 +14,7 @@ public class Champion : Card
 	public Champion(string name, string displayText, float maxHealth){
 		this.cardName = name;
 		this.displayText = displayText;
-		this.maxHealth = maxHealth;
-		this.health = this.maxHealth;
+		this.health = this.maxHealth = maxHealth;
 	}
 }
 
