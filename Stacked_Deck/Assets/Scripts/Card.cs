@@ -1,10 +1,16 @@
 using UnityEngine;
 using System.Collections;
-
-public abstract class Card : MonoBehaviour
+using UnityEngine.EventSystems;
+public abstract class Card : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-	protected string cardName;
-	protected string displayText;
+	public string cardName;
+	public string displayText;
+	public Texture image;
+
+	public abstract void OnBeginDrag(PointerEventData eventData);
+
+	public abstract void OnDrag(PointerEventData eventData);
+
+	public abstract void OnEndDrag(PointerEventData eventData);
 
 }
-

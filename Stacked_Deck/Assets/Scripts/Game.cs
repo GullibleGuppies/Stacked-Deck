@@ -1,15 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System;
+using System.Data;
+using Mono.Data.Sqlite;
 public class Game : MonoBehaviour {
+
 
 	// Use this for initialization
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		string conn = "URI=file:" + Application.dataPath + "/cardDatabase.s3db"; //Path to database.
+		IDbConnection dbconn;
+		dbconn = (IDbConnection) new SqliteConnection(conn);
+		dbconn.Open(); //Open connection to the database.
+		IDbCommand dbcmd = dbconn.CreateCommand();
+		string sqlQuery = "SELECT ID,name, description " + "FROM champions";
+		dbcmd.CommandText = sqlQuery;
+		IDataReader reader = dbcmd.ExecuteReader();
+		while (reader.Read())
+		{
+			int ID = reader.GetInt32(0);
+			string name = reader.GetString(1);
+			string description = reader.GetString(2);
+			
+			Debug.Log( "ID= "+ID+"  name ="+name+"  description ="+  description);
+		}
+		reader.Close();
+		reader = null;
+		dbcmd.Dispose();
+		dbcmd = null;
+		dbconn.Close();
+		dbconn = null;
 	}
 }
+

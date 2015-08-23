@@ -1,14 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class Minion : Card
+public class Spell : Card
 {
-	public float health;
-	public float attack;
-
 	// Use this for initialization
 	void Start () {
-
 	}
 	
 	// Update is called once per frame
@@ -19,12 +15,10 @@ public class Minion : Card
 	{
 		throw new System.NotImplementedException ();
 	}
-
 	public override void OnDrag (UnityEngine.EventSystems.PointerEventData eventData)
 	{
 		throw new System.NotImplementedException ();
 	}
-
 	public override void OnEndDrag (UnityEngine.EventSystems.PointerEventData eventData)
 	{
 		throw new System.NotImplementedException ();
