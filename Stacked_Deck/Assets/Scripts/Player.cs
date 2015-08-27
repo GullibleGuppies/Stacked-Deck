@@ -1,15 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class Player : Champion
+public class Player : MonoBehaviour
 {
-	// Use this for initialization
-	void Start () {
-	}
+	public Player(){
+
 	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }
 

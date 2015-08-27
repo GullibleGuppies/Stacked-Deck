@@ -1,8 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class Item : Card
+public class Item : Card
 {
+	int attackMod;
+	int healthMod;
+
+	public Item(int ID,string name,string displayText,int attackMod,int healthMod,string effects){
+	
+	
+	}
+
 	public override void OnBeginDrag (UnityEngine.EventSystems.PointerEventData eventData)
 	{
 		throw new System.NotImplementedException ();
@@ -17,5 +25,7 @@ public abstract class Item : Card
 	{
 		throw new System.NotImplementedException ();
 	}
+
+
 }
 
