@@ -3,9 +3,7 @@ using System.Collections;
 
 public class Item : Card
 {
-	int attackMod;
-	int healthMod;
-
+	private ItemStats stats;
 	public Item(int ID, int skin, int cost, string name, string displayText, int attackMod, int healthMod, string effects){
 		this.ID = ID;
 		this.skin = skin;
@@ -13,6 +11,7 @@ public class Item : Card
 		this.cardName = name;
 		this.displayText = displayText;
 		this.effects = toList<string>(effects.Split(','));
+		this.stats = new ItemStats(attackMod, healthMod);
 	}
 
 	public override void OnBeginDrag (UnityEngine.EventSystems.PointerEventData eventData)
@@ -30,6 +29,12 @@ public class Item : Card
 		throw new System.NotImplementedException ();
 	}
 
+	public ItemStats getStats()
+	{
+		return stats;
+	}
 
 }
+
+
 

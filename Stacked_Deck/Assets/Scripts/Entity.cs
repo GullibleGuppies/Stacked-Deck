@@ -51,7 +51,12 @@ public class Entity : Card
 	{
 		itemsEquipped.Add(item);
 	}
-	
+
+	private ItemStats getStatsFromItems()
+	{
+		return ItemStats.addStats(itemsEquipped);
+	}
+
 	public override void OnBeginDrag (UnityEngine.EventSystems.PointerEventData eventData)
 	{
 		throw new System.NotImplementedException ();
