@@ -53,18 +53,18 @@ public class CardDatabase
 			string displayText = reader.GetString(5);
 			string effects = reader.GetString(6);
 			switch(cardType){
-			case 0:
+			case ENTITIES:
 				int entityType = reader.GetInt32(7);
 				int attack = reader.GetInt32(8);
 				int maxHealth = reader.GetInt32(9);
 				cards.Add(new Entity(ID, skin, cost, entityType, name, displayText, attack, maxHealth, effects));
 				break;
-			case 1:
+			case ITEMS:
 				int attackMod = reader.GetInt32(10);
 				int healthMod = reader.GetInt32(11);
 				cards.Add(new Item(ID, skin, cost, name, displayText, attackMod, healthMod, effects));
 				break;
-			case 2:
+			case SPELLS:
 				cards.Add(new Spell(ID, skin, cost, name, displayText, effects));
 				break;
 			}
