@@ -6,9 +6,13 @@ public class Item : Card
 	int attackMod;
 	int healthMod;
 
-	public Item(int ID,string name,string displayText,int attackMod,int healthMod,string effects){
-	
-	
+	public Item(int ID, int skin, int cost, string name, string displayText, int attackMod, int healthMod, string effects){
+		this.ID = ID;
+		this.skin = skin;
+		this.cost = cost;
+		this.cardName = name;
+		this.displayText = displayText;
+		this.effects = toList<string>(effects.Split(','));
 	}
 
 	public override void OnBeginDrag (UnityEngine.EventSystems.PointerEventData eventData)

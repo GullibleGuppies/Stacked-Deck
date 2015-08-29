@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 public class Spell : Card
 {
-	public Spell(int ID,string name,string displayText,string effects){
+	public Spell(int ID, int skin, int cost, string name, string displayText, string effects){
 		this.ID = ID;
 		this.cardName = name;
 		this.displayText = displayText;

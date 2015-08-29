@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 public abstract class Card: IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 	public int ID;
+	public int skin;
+	public int cost;
 	public string cardName;
 	public string displayText;
 	public Texture image;

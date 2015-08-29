@@ -1,16 +1,16 @@
-using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using System.Data;
 using Mono.Data.Sqlite;
+using UnityEngine;
 
 public class CardDatabase
 {
-	public const string ENTITIES_DB = "Entities";
-	public const string SPELLS_DB = "Spells";
-	public const string ITEMS_DB = "Items";
-
+	public const int ENTITIES = 0;
+	public const int ITEMS = 1;
+	public const int SPELLS = 2;
+	
 	string conn;
 	IDbConnection dbconn;
 	IDbCommand dbcmd;
@@ -37,61 +37,37 @@ public class CardDatabase
 		dbconn = null;
 	}
 
-	public List<Card> getAll(string db)
+	public List<Card> getAll()
 	{
 		List<Card> cards = new List<Card>();
 		openConnection ();
-		switch (db) {
-		case "Entities":
-			sqlQuery = "SELECT ID,type,name,description,attack,maxHealth,effects FROM Entities";
-			break;
-		case "Items":
-				sqlQuery = "SELECT ID,name,description,attackMod,healthMod,effects FROM Items";
-			break;
-		case "Spells":
-			sqlQuery = "SELECT ID,name,description,effects FROM Spells";
-			break;
-		}
-		dbcmd.CommandText = sqlQuery;
+		dbcmd.CommandText = "SELECT * FROM Cards";
 		reader = dbcmd.ExecuteReader();
 		while (reader.Read())
 		{
-			switch(db){
-			case "Entities":
-				int ID = Convert.ToInt32(reader.GetValue(0));
-
-				int type = Convert.ToInt32(reader.GetValue(1));
-
-				string name;
-				if (reader.IsDBNull(2)){
-					name = "";
-				} else {
-					name = reader.GetString(2);
-				}
-
-				string displayText;
-				if (reader.IsDBNull(3)){
-					displayText = "";
-				} else {
-					displayText = reader.GetString(3);
-				}
-
-				int attack = Convert.ToInt32(reader.GetValue(4));
-
-				int maxHealth = Convert.ToInt32(reader.GetValue(5));
-			
-				string effects;
-				if (reader.IsDBNull(6)){
-					effects = "";
-				} else {
-					effects = reader.GetString(6);
-				}
-				cards.Add(new Entity(ID,type,name,displayText,attack,maxHealth,effects));
-				
+			int ID = reader.GetInt32(0);
+			int cost = reader.GetInt32(1);
+			int cardType = reader.GetInt32(2);
+			int skin = reader.GetInt32(3);
+			string name = reader.GetString(4);
+			string displayText = reader.GetString(5);
+			string effects = reader.GetString(6);
+			switch(cardType){
+			case 0:
+				int entityType = reader.GetInt32(7);
+				int attack = reader.GetInt32(8);
+				int maxHealth = reader.GetInt32(9);
+				cards.Add(new Entity(ID, skin, cost, entityType, name, displayText, attack, maxHealth, effects));
 				break;
-
+			case 1:
+				int attackMod = reader.GetInt32(10);
+				int healthMod = reader.GetInt32(11);
+				cards.Add(new Item(ID, skin, cost, name, displayText, attackMod, healthMod, effects));
+				break;
+			case 2:
+				cards.Add(new Spell(ID, skin, cost, name, displayText, effects));
+				break;
 			}
-
 
 		}
 		closeConnection ();
