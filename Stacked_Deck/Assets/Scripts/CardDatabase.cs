@@ -40,7 +40,7 @@ public class CardDatabase
 			string displayText = reader.GetString(5);
 			string effects = reader.GetString(6);
 			switch(cardType){
-			case 0:
+			case ENTITIES:
 				int entityType = reader.GetInt32(7);
 				int attack = reader.GetInt32(8);
 				int maxHealth = reader.GetInt32(9);
@@ -48,14 +48,14 @@ public class CardDatabase
 				entityInst.Init(ID, skin, cost, entityType, name, displayText, attack, maxHealth, effects);
 				card = entityInst;
 				break;
-			case 1:
+			case ITEMS:
 				int attackMod = reader.GetInt32(10);
 				int healthMod = reader.GetInt32(11);
 				Item itemInst = ScriptableObject.CreateInstance<Item>();
 				itemInst.Init(ID, skin, cost, name, displayText, attackMod, healthMod, effects);
 				card = itemInst;
 				break;
-			case 2:
+			case SPELLS:
 				Spell spellInst = ScriptableObject.CreateInstance<Spell>();
 				spellInst.Init(ID, skin, cost, name, displayText, effects);
 				card = spellInst;

@@ -12,6 +12,7 @@ Stacked_Deck/[Bb]uild/
 *.userprefs
 *.pidb
 *.booproj
+*.csproj
 
 # Unity3D generated meta files
 *.pidb.meta
