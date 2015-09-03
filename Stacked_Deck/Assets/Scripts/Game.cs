@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Game : MonoBehaviour {
-	Deck deck = new Deck();
+	
+	int[] tempdeck = new int[]{0,0,0,1,1,1,2,2,2};
+	public Player localPlayer;
+
 	void Start () {
-		CardDatabase cdb = new CardDatabase ();
-		deck.AddRange (cdb.getAll());
-		foreach(Card card in deck){
-			print(card.cardName);
-		}
+		localPlayer = new Player (tempdeck);
+		localPlayer.hand.DrawCards (2);
+		print (localPlayer.hand [0].cardName);
 	}
 }
 

@@ -9,9 +9,11 @@ public class Entity : Card
 	public int maxHealth;
 	public int health;
 	public int attack;
-	public int entityType;	
+	public int entityType;
 
-	public Entity(int ID, int skin, int cost, int entityType, string name, string displayText, int attack, int maxHealth,string effects){
+	public Entity (){}
+
+	public void Init(int ID, int skin, int cost, int entityType, string name, string displayText, int attack, int maxHealth,string effects){
 		this.ID = ID;
 		this.skin = skin;
 		this.cost = cost;

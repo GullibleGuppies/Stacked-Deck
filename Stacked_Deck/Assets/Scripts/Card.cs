@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.EventSystems;
-public abstract class Card: IBeginDragHandler, IDragHandler, IEndDragHandler
+public abstract class Card: ScriptableObject, IBeginDragHandler, IDragHandler, IEndDragHandler, IEffects
 {
 	public int ID;
 	public int skin;
@@ -22,4 +22,6 @@ public abstract class Card: IBeginDragHandler, IDragHandler, IEndDragHandler
 	public abstract void OnDrag(PointerEventData eventData);
 
 	public abstract void OnEndDrag(PointerEventData eventData);
+
+	public virtual void damage(){}
 }

@@ -28,21 +28,8 @@ public class CardDatabase
 		dbcmd = dbconn.CreateCommand();
 	}
 
-	void closeConnection(){
-		reader.Close();
-		reader = null;
-		dbcmd.Dispose();
-		dbcmd = null;
-		dbconn.Close();
-		dbconn = null;
-	}
-
-	public List<Card> getAll()
-	{
-		List<Card> cards = new List<Card>();
-		openConnection ();
-		dbcmd.CommandText = "SELECT * FROM Cards";
-		reader = dbcmd.ExecuteReader();
+	Card getInfo(){
+		Card card = null;
 		while (reader.Read())
 		{
 			int ID = reader.GetInt32(0);
@@ -57,30 +44,45 @@ public class CardDatabase
 				int entityType = reader.GetInt32(7);
 				int attack = reader.GetInt32(8);
 				int maxHealth = reader.GetInt32(9);
-				cards.Add(new Entity(ID, skin, cost, entityType, name, displayText, attack, maxHealth, effects));
+				Entity entityInst = ScriptableObject.CreateInstance<Entity>();
+				entityInst.Init(ID, skin, cost, entityType, name, displayText, attack, maxHealth, effects);
+				card = entityInst;
 				break;
 			case 1:
 				int attackMod = reader.GetInt32(10);
 				int healthMod = reader.GetInt32(11);
-				cards.Add(new Item(ID, skin, cost, name, displayText, attackMod, healthMod, effects));
+				Item itemInst = ScriptableObject.CreateInstance<Item>();
+				itemInst.Init(ID, skin, cost, name, displayText, attackMod, healthMod, effects);
+				card = itemInst;
 				break;
 			case 2:
-				cards.Add(new Spell(ID, skin, cost, name, displayText, effects));
+				Spell spellInst = ScriptableObject.CreateInstance<Spell>();
+				spellInst.Init(ID, skin, cost, name, displayText, effects);
+				card = spellInst;
 				break;
-			}
-
+			}			
 		}
-		closeConnection ();
-		return cards;
+		return card;
+		
 	}
 
-
-
-	void getValue()
+	void closeConnection(){
+		reader.Close();
+		reader = null;
+		dbcmd.Dispose();
+		dbcmd = null;
+		dbconn.Close();
+		dbconn = null;
+	}
+	
+	public Card GetByID(int id)
 	{
 		openConnection ();
-		//do the shit
+		dbcmd.CommandText = "SELECT * FROM Cards WHERE ID=" + Convert.ToString(id);
+		reader = dbcmd.ExecuteReader();
+		Card card = getInfo ();
 		closeConnection ();
+		return card;
 	}
 }
 
