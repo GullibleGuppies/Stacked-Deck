@@ -15,18 +15,20 @@ public class Entity : Card
 
 	public Entity (){}
 
-	public void Init(int ID, int skin, int cost, int entityType, string name, string displayText, int attack, int maxHealth,string effects){
+	public Card Init(int ID, int skin, int cost, int entityType, string name, string displayText, int attack, int maxHealth,string effects){
 		this.ID = ID;
 		this.skin = skin;
 		this.cost = cost;
 		this.entityType = entityType;
-		this.attack = attack;
 		this.cardName = name;
 		this.displayText = displayText;
+		this.attack = attack;
 		this.maxHealth = maxHealth;
+		this.effects = toList<string>(effects.Split (','));
 		this.health = this.maxHealth;
 		this.health = this.maxHealth = maxHealth;
 		this.itemsEquipped = new List<Item>();
+		return this;
 	}
 
 	public bool tryEquipItem(Item item)
@@ -57,20 +59,6 @@ public class Entity : Card
 	{
 		return ItemStats.addStats(itemsEquipped);
 	}
-
-	public override void OnBeginDrag (UnityEngine.EventSystems.PointerEventData eventData)
-	{
-		throw new System.NotImplementedException ();
-	}
-
-	public override void OnDrag (UnityEngine.EventSystems.PointerEventData eventData)
-	{
-		throw new System.NotImplementedException ();
-	}
-
-	public override void OnEndDrag (UnityEngine.EventSystems.PointerEventData eventData)
-	{
-		throw new System.NotImplementedException ();
-	}
+	
 }
 

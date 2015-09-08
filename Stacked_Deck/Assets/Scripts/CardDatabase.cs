@@ -10,6 +10,8 @@ public class CardDatabase
 	public const int ENTITIES = 0;
 	public const int ITEMS = 1;
 	public const int SPELLS = 2;
+
+	GameObject cardPrefab;
 	
 	string conn;
 	IDbConnection dbconn;
@@ -18,7 +20,7 @@ public class CardDatabase
 	IDataReader reader; 
 
 	public CardDatabase(){
-	
+		cardPrefab = Resources.Load ("Prefabs/card") as GameObject;
 	}
 
 	void openConnection(){
@@ -44,21 +46,24 @@ public class CardDatabase
 				int entityType = reader.GetInt32(7);
 				int attack = reader.GetInt32(8);
 				int maxHealth = reader.GetInt32(9);
-				Entity entityInst = ScriptableObject.CreateInstance<Entity>();
-				entityInst.Init(ID, skin, cost, entityType, name, displayText, attack, maxHealth, effects);
-				card = entityInst;
+				GameObject entity = GameObject.Instantiate(cardPrefab);
+				entity.name = "Entity" + ID.ToString();
+				Entity eComp = entity.AddComponent<Entity>() as Entity;
+				card = eComp.Init(ID, skin, cost, entityType, name, displayText, attack, maxHealth, effects);
 				break;
 			case ITEMS:
 				int attackMod = reader.GetInt32(10);
 				int healthMod = reader.GetInt32(11);
-				Item itemInst = ScriptableObject.CreateInstance<Item>();
-				itemInst.Init(ID, skin, cost, name, displayText, attackMod, healthMod, effects);
-				card = itemInst;
+				GameObject item = GameObject.Instantiate(cardPrefab);
+				item.name = "Item" + ID.ToString();
+				Item iComp = item.AddComponent<Item>() as Item;
+				card = iComp.Init(ID, skin, cost, name, displayText, attackMod, healthMod, effects);
 				break;
 			case SPELLS:
-				Spell spellInst = ScriptableObject.CreateInstance<Spell>();
-				spellInst.Init(ID, skin, cost, name, displayText, effects);
-				card = spellInst;
+				GameObject spell = GameObject.Instantiate(cardPrefab);
+				spell.name = "Spell" + ID.ToString();
+				Spell sComp = spell.AddComponent<Spell>() as Spell;
+				card = sComp.Init(ID, skin, cost, name, displayText, effects);
 				break;
 			}			
 		}

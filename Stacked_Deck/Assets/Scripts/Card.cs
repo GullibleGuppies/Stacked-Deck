@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.EventSystems;
-public abstract class Card: ScriptableObject, IBeginDragHandler, IDragHandler, IEndDragHandler, IEffects
+
+public abstract class Card: MonoBehaviour, IEffects
 {
 	public int ID;
 	public int skin;
@@ -17,11 +18,12 @@ public abstract class Card: ScriptableObject, IBeginDragHandler, IDragHandler, I
 		return enu.ToList ();
 	}
 
-	public abstract void OnBeginDrag(PointerEventData eventData);
+	public virtual void OnMouseOver(){
+		Debug.Log ("EY SHA BOI");
+	}
 
-	public abstract void OnDrag(PointerEventData eventData);
+	public virtual void dealDamage(int damage, Entity target){}
 
-	public abstract void OnEndDrag(PointerEventData eventData);
-
-	public virtual void damage(){}
+	public virtual void takeDamage(int damage){}
+	
 }

@@ -4,13 +4,21 @@ using System.Collections.Generic;
 
 public class Game : MonoBehaviour {
 	
-	int[] tempdeck = new int[]{0,0,0,1,1,1,2,2,2};
-	public Player localPlayer;
+	int[] tempdeck = new int[]{1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4};
+	public Hero player;
 
 	void Start () {
-		localPlayer = new Player (tempdeck);
-		localPlayer.hand.DrawCards (2);
-		print (localPlayer.hand [0].cardName);
+		GameObject player1 = Instantiate (Resources.Load ("Prefabs/Player")) as GameObject;
+		player = player1.AddComponent<Hero> () as Hero;
+		player.Init (tempdeck);
+		InvokeRepeating ("test", 0, 1);
+	}
+
+	void Update() {
+	}
+
+	void test(){
+		player.hand.DrawCards (1);
 	}
 }
 

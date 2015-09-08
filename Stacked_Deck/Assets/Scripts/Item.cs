@@ -9,7 +9,7 @@ public class Item : Card
 
 	public Item(){}
 
-	public void Init(int ID, int skin, int cost, string name, string displayText, int attackMod, int healthMod, string effects){
+	public Item Init(int ID, int skin, int cost, string name, string displayText, int attackMod, int healthMod, string effects){
 		this.ID = ID;
 		this.skin = skin;
 		this.cost = cost;
@@ -17,21 +17,7 @@ public class Item : Card
 		this.displayText = displayText;
 		this.effects = toList<string>(effects.Split(','));
 		this.stats = new ItemStats(attackMod, healthMod);
-	}
-
-	public override void OnBeginDrag (UnityEngine.EventSystems.PointerEventData eventData)
-	{
-		throw new System.NotImplementedException ();
-	}
-	
-	public override void OnDrag (UnityEngine.EventSystems.PointerEventData eventData)
-	{
-		throw new System.NotImplementedException ();
-	}
-	
-	public override void OnEndDrag (UnityEngine.EventSystems.PointerEventData eventData)
-	{
-		throw new System.NotImplementedException ();
+		return this;
 	}
 
 	public ItemStats getStats()
