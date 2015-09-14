@@ -17,6 +17,7 @@ public class Item : Card
 		this.displayText = displayText;
 		this.effects = effects;
 		this.stats = new ItemStats(attackMod, healthMod);
+		eHandler = new EffectsHandler (effects, this);
 		return this;
 	}
 

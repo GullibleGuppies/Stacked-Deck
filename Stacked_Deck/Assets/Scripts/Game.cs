@@ -2,13 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(BattleField))]
-
 public class Game : MonoBehaviour {
-	
-	int[] tempdeck = new int[]{4};
+
+	public static Game thisGame;
+	int[] tempdeck = new int[]{1};
 	public Hero player;
 	public static BattleField battleField;
+
+	public Game(){
+	}
 
 	void Start () {
 		Init ();
@@ -22,7 +24,10 @@ public class Game : MonoBehaviour {
 	}
 
 	void Init(){
-		battleField = GetComponent (typeof(BattleField)) as BattleField;
+		thisGame = gameObject.GetComponent<Game> ();
+		battleField = gameObject.AddComponent<BattleField>() as BattleField;
+		print (battleField == null);
+		
 	}
 
 	void test(){

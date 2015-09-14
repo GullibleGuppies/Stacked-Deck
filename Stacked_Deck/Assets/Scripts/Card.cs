@@ -22,11 +22,10 @@ public abstract class Card: MonoBehaviour
 	public const int IN_PLAY = 3;
 	public const int DESTROYED = 4;
 
-	EffectsHandler eHandler;
+	protected EffectsHandler eHandler;
 	DragAndDrop dragDrop;
 
 	void Start(){
-		eHandler = new EffectsHandler (effects);
 		dragDrop = GetComponent<DragAndDrop> ();
 	}
 

@@ -28,12 +28,14 @@ public class Entity : Card
 		this.health = this.maxHealth;
 		this.health = this.maxHealth = maxHealth;
 		this.itemsEquipped = new List<Item>();
+		eHandler = new EffectsHandler (effects, this);
 		return this;
 	}
 
 	public override void OnCast ()
 	{
-		Game.battleField.cards.Add (this);
+		print (Game.battleField.cards == null);
+		Game.battleField.cards.Add (this.gameObject);
 		base.OnCast ();
 	}
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class BattleField : MonoBehaviour
 {
-	public List<Card> cards = new List<Card>();
+	public List<GameObject> cards = new List<GameObject>();
 	// Use this for initialization
 	void Start ()
 	{

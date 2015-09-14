@@ -17,9 +17,11 @@ public class EffectsHandler
 	List<string> InPlayEffects;
 	List<string> onDestroyEffects;
 
-	Regex r;
+	Card caller;
 
-	public EffectsHandler (string effects)
+	Regex effectReg;
+
+	public EffectsHandler (string effects, Card caller)
 	{
 		string[] effectsArray = effects.Split ('|');
 		if (effectsArray.Length == 5) {
@@ -29,7 +31,8 @@ public class EffectsHandler
 			onCastEffects = effectsArray [2].Split ('&').ToList ();
 			InPlayEffects = effectsArray [3].Split ('&').ToList ();
 			onDestroyEffects = effectsArray [4].Split ('&').ToList ();
-			r = new Regex ("(\\w+) ?(?:\\((.*)\\))?");
+			this.caller = caller;
+			effectReg = new Regex ("(\\w+) ?(?:\\((.*)?\\))");
 		} else {
 			throw new System.ArgumentException("Must have a length of 5.","effects");
 		}
@@ -45,12 +48,25 @@ public class EffectsHandler
 			if(effectAndArgs[0] == ""){
 				return;
 			}
-			MethodInfo method = thisType.GetMethod (effectAndArgs[0]);
+			MethodInfo method = thisType.GetMethod (effectAndArgs[0],BindingFlags.NonPublic | BindingFlags.Instance);
 			if(effectAndArgs[1] == ""){
 				method.Invoke(this, null);
 				return;
+			} else {
+				string[] args = effectAndArgs[1].Split(',');
+				object[] proccessedArgs = new object[args.Length];
+				for (int i = 0; i < args.Length; i++){
+					if(args[i] == "this"){
+						proccessedArgs[i] = caller;
+					} else if(Regex.IsMatch(args[i],"\\d*")){
+						proccessedArgs[i] = Int32.Parse(args[i]);
+					} else {
+						proccessedArgs[i] = args[i];
+					}
+				}
+
+				method.Invoke(this, proccessedArgs);
 			}
-			method.Invoke(this, effectAndArgs[1].Split(',') as object[]);
 		}
 	}
 
@@ -61,7 +77,7 @@ public class EffectsHandler
 				continue;
 			}
 			List<string> match = new List<string>();
-			var callAndArgs = r.Match(effect);
+			var callAndArgs = effectReg.Match(effect);
 			match.Add(callAndArgs.Groups[1].Value);
 			match.Add(callAndArgs.Groups[2].Value);
 			matches.Add(match);
@@ -90,12 +106,11 @@ public class EffectsHandler
 		Invoke (onDestroyEffects);
 	}
 	
-	void dealDamage (int damage, Entity target)
-	{
-	}
+	void damageEntity (int damage, Entity target){
 
-	public void takeDamage ()
-	{
-		Debug.Log ("took damage!");
 	}
+	void damageHero(int damage, Hero hero){
+
+	}
+	
 }

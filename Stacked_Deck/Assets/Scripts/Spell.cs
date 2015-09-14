@@ -10,7 +10,9 @@ public class Spell : Card
 		this.cardName = name;
 		this.displayText = displayText;
 		this.effects = effects;
+		eHandler = new EffectsHandler (effects, this);
 		return this;
 	}
+
 }
 
