@@ -9,7 +9,7 @@ public class Spell : Card
 		this.ID = ID;
 		this.cardName = name;
 		this.displayText = displayText;
-		this.effects = toList<string>(effects.Split(','));
+		this.effects = effects;
 		return this;
 	}
 }

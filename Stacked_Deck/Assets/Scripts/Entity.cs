@@ -24,11 +24,17 @@ public class Entity : Card
 		this.displayText = displayText;
 		this.attack = attack;
 		this.maxHealth = maxHealth;
-		this.effects = toList<string>(effects.Split (','));
+		this.effects = effects;
 		this.health = this.maxHealth;
 		this.health = this.maxHealth = maxHealth;
 		this.itemsEquipped = new List<Item>();
 		return this;
+	}
+
+	public override void OnCast ()
+	{
+		Game.battleField.cards.Add (this);
+		base.OnCast ();
 	}
 
 	public bool tryEquipItem(Item item)

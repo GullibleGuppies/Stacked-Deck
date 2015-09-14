@@ -15,7 +15,7 @@ public class Item : Card
 		this.cost = cost;
 		this.cardName = name;
 		this.displayText = displayText;
-		this.effects = toList<string>(effects.Split(','));
+		this.effects = effects;
 		this.stats = new ItemStats(attackMod, healthMod);
 		return this;
 	}
