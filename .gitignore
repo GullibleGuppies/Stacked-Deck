@@ -19,3 +19,7 @@ Stacked_Deck/[Bb]uild/
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+*.csproj
+Stacked_Deck/Stacked_Deck.sln
+*.sln
+*.csproj
