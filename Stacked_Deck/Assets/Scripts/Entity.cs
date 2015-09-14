@@ -10,22 +10,33 @@ public class Entity : Card
 	public int health;
 	public int attack;
 	public int entityType;
-
 	private IList<Item> itemsEquipped;
 	private const int ITEM_MAX = 3;
 
-	public Entity(int ID, int skin, int cost, int entityType, string name, string displayText, int attack, int maxHealth,string effects){
+	public Entity (){}
+
+	public Card Init(int ID, int skin, int cost, int entityType, string name, string displayText, int attack, int maxHealth,string effects){
 		this.ID = ID;
 		this.skin = skin;
 		this.cost = cost;
 		this.entityType = entityType;
-		this.attack = attack;
 		this.cardName = name;
 		this.displayText = displayText;
+		this.attack = attack;
 		this.maxHealth = maxHealth;
+		this.effects = effects;
 		this.health = this.maxHealth;
 		this.health = this.maxHealth = maxHealth;
 		this.itemsEquipped = new List<Item>();
+		eHandler = new EffectsHandler (effects, this);
+		return this;
+	}
+
+	public override void OnCast ()
+	{
+		print (Game.battleField.cards == null);
+		Game.battleField.cards.Add (this.gameObject);
+		base.OnCast ();
 	}
 
 	public bool tryEquipItem(Item item)
@@ -56,20 +67,6 @@ public class Entity : Card
 	{
 		return ItemStats.addStats(itemsEquipped);
 	}
-
-	public override void OnBeginDrag (UnityEngine.EventSystems.PointerEventData eventData)
-	{
-		throw new System.NotImplementedException ();
-	}
-
-	public override void OnDrag (UnityEngine.EventSystems.PointerEventData eventData)
-	{
-		throw new System.NotImplementedException ();
-	}
-
-	public override void OnEndDrag (UnityEngine.EventSystems.PointerEventData eventData)
-	{
-		throw new System.NotImplementedException ();
-	}
+	
 }
 

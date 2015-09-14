@@ -10,6 +10,8 @@ public class CardDatabase
 	public const int ENTITIES = 0;
 	public const int ITEMS = 1;
 	public const int SPELLS = 2;
+
+	GameObject cardPrefab;
 	
 	string conn;
 	IDbConnection dbconn;
@@ -18,7 +20,7 @@ public class CardDatabase
 	IDataReader reader; 
 
 	public CardDatabase(){
-	
+		cardPrefab = Resources.Load ("Prefabs/card") as GameObject;
 	}
 
 	void openConnection(){
@@ -28,21 +30,8 @@ public class CardDatabase
 		dbcmd = dbconn.CreateCommand();
 	}
 
-	void closeConnection(){
-		reader.Close();
-		reader = null;
-		dbcmd.Dispose();
-		dbcmd = null;
-		dbconn.Close();
-		dbconn = null;
-	}
-
-	public List<Card> getAll()
-	{
-		List<Card> cards = new List<Card>();
-		openConnection ();
-		dbcmd.CommandText = "SELECT * FROM Cards";
-		reader = dbcmd.ExecuteReader();
+	Card getInfo(){
+		Card card = null;
 		while (reader.Read())
 		{
 			int ID = reader.GetInt32(0);
@@ -57,30 +46,48 @@ public class CardDatabase
 				int entityType = reader.GetInt32(7);
 				int attack = reader.GetInt32(8);
 				int maxHealth = reader.GetInt32(9);
-				cards.Add(new Entity(ID, skin, cost, entityType, name, displayText, attack, maxHealth, effects));
+				GameObject entity = GameObject.Instantiate(cardPrefab);
+				entity.name = "Entity" + ID.ToString();
+				Entity eComp = entity.AddComponent<Entity>() as Entity;
+				card = eComp.Init(ID, skin, cost, entityType, name, displayText, attack, maxHealth, effects);
 				break;
 			case ITEMS:
 				int attackMod = reader.GetInt32(10);
 				int healthMod = reader.GetInt32(11);
-				cards.Add(new Item(ID, skin, cost, name, displayText, attackMod, healthMod, effects));
+				GameObject item = GameObject.Instantiate(cardPrefab);
+				item.name = "Item" + ID.ToString();
+				Item iComp = item.AddComponent<Item>() as Item;
+				card = iComp.Init(ID, skin, cost, name, displayText, attackMod, healthMod, effects);
 				break;
 			case SPELLS:
-				cards.Add(new Spell(ID, skin, cost, name, displayText, effects));
+				GameObject spell = GameObject.Instantiate(cardPrefab);
+				spell.name = "Spell" + ID.ToString();
+				Spell sComp = spell.AddComponent<Spell>() as Spell;
+				card = sComp.Init(ID, skin, cost, name, displayText, effects);
 				break;
-			}
-
+			}			
 		}
-		closeConnection ();
-		return cards;
+		return card;
+		
 	}
 
-
-
-	void getValue()
+	void closeConnection(){
+		reader.Close();
+		reader = null;
+		dbcmd.Dispose();
+		dbcmd = null;
+		dbconn.Close();
+		dbconn = null;
+	}
+	
+	public Card GetByID(int id)
 	{
 		openConnection ();
-		//do the shit
+		dbcmd.CommandText = "SELECT * FROM Cards WHERE ID=" + Convert.ToString(id);
+		reader = dbcmd.ExecuteReader();
+		Card card = getInfo ();
 		closeConnection ();
+		return card;
 	}
 }
 

@@ -46,14 +46,18 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BattleField.cs" />
      <Compile Include="Assets\Scripts\Card.cs" />
      <Compile Include="Assets\Scripts\CardDatabase.cs" />
      <Compile Include="Assets\Scripts\Deck.cs" />
+     <Compile Include="Assets\Scripts\DragAndDrop.cs" />
+     <Compile Include="Assets\Scripts\EffectsHandler.cs" />
      <Compile Include="Assets\Scripts\Entity.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
-     <Compile Include="Assets\Scripts\IEffects.cs" />
+     <Compile Include="Assets\Scripts\Hand.cs" />
+     <Compile Include="Assets\Scripts\Hero.cs" />
      <Compile Include="Assets\Scripts\Item.cs" />
-     <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\ItemStats.cs" />
      <Compile Include="Assets\Scripts\Spell.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -65,10 +69,10 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Data.Sqlite">
- <HintPath>C:/Users/Matthew/Documents/GitHub/Stacked-Deck/Stacked_Deck/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+ <HintPath>C:/Users/User/Documents/GitHub/Stacked-Deck/Stacked_Deck/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
  </Reference>
  <Reference Include="System.Data">
- <HintPath>C:/Users/Matthew/Documents/GitHub/Stacked-Deck/Stacked_Deck/Assets/Plugins/System.Data.dll</HintPath>
+ <HintPath>C:/Users/User/Documents/GitHub/Stacked-Deck/Stacked_Deck/Assets/Plugins/System.Data.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

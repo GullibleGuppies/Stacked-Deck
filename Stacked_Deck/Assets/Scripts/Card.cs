@@ -1,9 +1,10 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.EventSystems;
-public abstract class Card: IBeginDragHandler, IDragHandler, IEndDragHandler
+
+public abstract class Card: MonoBehaviour
 {
 	public int ID;
 	public int skin;
@@ -11,15 +12,68 @@ public abstract class Card: IBeginDragHandler, IDragHandler, IEndDragHandler
 	public string cardName;
 	public string displayText;
 	public Texture image;
-	public List<string> effects;
+	public string effects;
 
-	protected List<T> toList<T>(IList<T> enu){
-		return enu.ToList ();
+	public int cardState = 0;
+
+	public const int DRAW = 0;
+	public const int IN_HAND = 1;
+	public const int CAST = 2;
+	public const int IN_PLAY = 3;
+	public const int DESTROYED = 4;
+
+	protected EffectsHandler eHandler;
+	DragAndDrop dragDrop;
+
+	void Start(){
+		dragDrop = GetComponent<DragAndDrop> ();
 	}
 
-	public abstract void OnBeginDrag(PointerEventData eventData);
+	void Update(){
+		switch (cardState) {
+		case DRAW:
+			Draw();
+			break;
+		case IN_HAND:
+			InHand();
+			break;
+		case CAST:
+			OnCast();
+			break;
+		case IN_PLAY:
+			InPlay();
+			break;
+		case DESTROYED:
+			OnKill();
+			break;
+		}
+	}
 
-	public abstract void OnDrag(PointerEventData eventData);
+	public virtual void Draw(){
+		eHandler.Draw ();
+		cardState = IN_HAND;
+	}
 
-	public abstract void OnEndDrag(PointerEventData eventData);
+	public virtual void InHand(){
+		eHandler.InHand ();
+		if (dragDrop._mouseState == false && cardState == IN_HAND && transform.position.y >= -4) {
+			cardState = CAST;
+			DestroyObject(dragDrop);
+		}
+	}
+
+	public virtual void OnCast(){
+		eHandler.OnCast ();
+		cardState = IN_PLAY;
+	}
+
+	public virtual void InPlay(){
+		eHandler.InPlay ();
+	}
+
+	public virtual void OnKill(){
+		eHandler.OnKill ();
+	}
+	
+
 }
