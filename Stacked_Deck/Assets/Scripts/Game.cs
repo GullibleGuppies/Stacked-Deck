@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Game : MonoBehaviour {
 
 	public static Game thisGame;
-	int[] tempdeck = new int[]{1};
+	int[] tempdeck = new int[]{1,2,3};
 	public Hero player;
 	public static BattleField battleField;
 
@@ -31,7 +31,7 @@ public class Game : MonoBehaviour {
 	}
 
 	void test(){
-		player.hand.DrawCards (1);
+		player.hand.DrawCards (3);
 	}
 }
 
