@@ -1,10 +1,9 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
-public class BattleField : MonoBehaviour
+public class CardHealth : MonoBehaviour
 {
-	public List<GameObject> cards = new List<GameObject>();
+	public int maxHealth;
 	// Use this for initialization
 	void Start ()
 	{

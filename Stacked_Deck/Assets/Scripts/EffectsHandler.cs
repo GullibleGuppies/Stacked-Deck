@@ -16,12 +16,10 @@ public class EffectsHandler
 	List<string> onCastEffects;
 	List<string> InPlayEffects;
 	List<string> onDestroyEffects;
-
-	Card caller;
-
+	
 	Regex effectReg;
 
-	public EffectsHandler (string effects, Card caller)
+	public EffectsHandler (string effects)
 	{
 		string[] effectsArray = effects.Split ('|');
 		if (effectsArray.Length == 5) {
@@ -31,7 +29,6 @@ public class EffectsHandler
 			onCastEffects = effectsArray [2].Split ('&').ToList ();
 			InPlayEffects = effectsArray [3].Split ('&').ToList ();
 			onDestroyEffects = effectsArray [4].Split ('&').ToList ();
-			this.caller = caller;
 			effectReg = new Regex ("(\\w+) ?(?:\\((.*)?\\))");
 		} else {
 			throw new System.ArgumentException("Must have a length of 5.","effects");
@@ -57,7 +54,7 @@ public class EffectsHandler
 				object[] proccessedArgs = new object[args.Length];
 				for (int i = 0; i < args.Length; i++){
 					if(args[i] == "this"){
-						proccessedArgs[i] = caller;
+						//proccessedArgs[i] = caller;
 					} else if(Regex.IsMatch(args[i],"\\d*")){
 						proccessedArgs[i] = Int32.Parse(args[i]);
 					} else {
@@ -105,12 +102,5 @@ public class EffectsHandler
 	public virtual void OnKill(){
 		Invoke (onDestroyEffects);
 	}
-	
-	void damageEntity (int damage, Entity target){
 
-	}
-	void damageHero(int damage, Hero hero){
-
-	}
-	
 }
